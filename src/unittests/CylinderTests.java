@@ -47,7 +47,12 @@ class CylinderTests {
 	 */
 	@Test
 	void testGetNormal() {
+		Cylinder c = new Cylinder(new Ray(new Point(0,0,0), new Vector(1,0,0)), 2, 9);
+		Point p1 = new Point(0,1,0);
 		//============ Equivalence Partitions Tests ==============
+		//TC01: test point that is on one of the bases
+		assertEquals(c.getNormal(p1), new Vector(1,0,0), "getNormal(p) of cyilnder return wrong result");
+		
 		//=============== Boundary Values Tests ==================
 
 	}
