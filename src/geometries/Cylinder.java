@@ -21,7 +21,12 @@ public class Cylinder extends Tube implements Geometry
 	@Override
 	public Vector getNormal(Point p) {
 		// TODO Auto-generated method stub
-		return null;
+		Vector v = super.getNormal(p);
+		Plane plane1 = new Plane(getAxisRay().getP0(),getAxisRay().getDir());
+		Plane plane2 = new Plane(getAxisRay().getP0().add(getAxisRay().getDir().scale(height)),getAxisRay().getDir());
+		if (plane1.onPlane(p)||plane2.onPlane(p))
+			return getAxisRay().getDir().normalize();
+		return v;
 	}
 
 }
