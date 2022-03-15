@@ -180,6 +180,9 @@ class VectorTests {
 	void testLengthSquared() {
 		//============ Equivalence Partitions Tests ==============
 		//=============== Boundary Values Tests ==================
+		//There are no tests because this function returns a root of the distance,
+		//and the tests were performed the entire distance
+
 
 	}
 
@@ -189,7 +192,6 @@ class VectorTests {
 	@Test
 	void testLength() {
 		Vector v1 = new Vector(0,2,0);
-		Vector v2 = new Vector(1,0,0);//unit vector
 		
 		//============ Equivalence Partitions Tests ==============
 		assertEquals((v1.length()), 2, "length(v) wrong result length");

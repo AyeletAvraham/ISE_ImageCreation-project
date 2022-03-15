@@ -28,6 +28,14 @@ public class Plane implements Geometry
 		p0 = p1;
 		this.normal = (p1.subtract(p2).crossProduct(p1.subtract(p3))).normalize();
 	}
+	public boolean onPlane(Point p)
+	{
+		double c1 = p.getXyz().getD1()*normal.getXyz().getD1() +p.getXyz().getD2()*normal.getXyz().getD2() +p.getXyz().getD3()*normal.getXyz().getD3();
+		double c2 = p0.getXyz().getD1()*normal.getXyz().getD1() +p0.getXyz().getD2()*normal.getXyz().getD2() +p0.getXyz().getD3()*normal.getXyz().getD3();
+		if(c1==c2)
+			return true;
+		return false;
+	}
 	@Override
 	public Vector getNormal(Point p)
 	{

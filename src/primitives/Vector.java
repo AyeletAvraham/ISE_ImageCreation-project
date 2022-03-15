@@ -28,7 +28,7 @@ public class Vector extends Point
 	public boolean equals(Object obj) {
 		return super.equals(obj);
 	}
-	public Vector scale(int num)
+	public Vector scale(double num)
 	{
 		return new Vector(this.getXyz().d1*num,this.getXyz().d2*num, this.getXyz().d3*num);
 	}

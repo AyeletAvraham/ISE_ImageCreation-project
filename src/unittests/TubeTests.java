@@ -45,8 +45,13 @@ class TubeTests {
 	 * Test method for {@link geometries.Tube#getNormal(primitives.Point)}.
 	 */
 	@Test
-	void testGetNormal() {
+	void testGetNormal() 
+	{
+		Tube t = new Tube(new Ray(new Point(0,0,0), new Vector(1,0,0)), 2);
+		Point p0 = new Point(0,2,0);
 		//============ Equivalence Partitions Tests ==============
+		assertEquals(t.getNormal(p0), new Vector(0,2,0), "getNormal(p) of tube return wrong result");
+	
 		//=============== Boundary Values Tests ==================
 
 	}
