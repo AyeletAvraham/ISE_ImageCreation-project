@@ -28,7 +28,7 @@ public class Point
 	}
 	@Override
 	public String toString() {
-		return "Point [xyz=" + xyz + "]";
+		return "[xyz=" + xyz + "]";
 	}
 
 	public Vector subtract(Point p2)

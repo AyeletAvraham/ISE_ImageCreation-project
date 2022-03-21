@@ -1,6 +1,6 @@
 package geometries;
 import primitives.*;
-
+import static java.lang.System.out;
 public class Cylinder extends Tube implements Geometry
 {
 	
@@ -20,7 +20,6 @@ public class Cylinder extends Tube implements Geometry
 
 	@Override
 	public Vector getNormal(Point p) {
-		// TODO Auto-generated method stub
 		Vector v = super.getNormal(p);
 		Plane plane1 = new Plane(getAxisRay().getP0(),getAxisRay().getDir());
 		Plane plane2 = new Plane(getAxisRay().getP0().add(getAxisRay().getDir().scale(height)),getAxisRay().getDir());

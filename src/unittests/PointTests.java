@@ -32,6 +32,7 @@ class PointTests {
 			fail("Failed constructing a correct Point");
 		}
 	}
+	
 	/**
 	 * Test method for {@link primitives.Point#subtract(primitives.Point)}.
 	 */
@@ -46,8 +47,12 @@ class PointTests {
         
 		//=============== Boundary Values Tests ==================
 		// TC02: The two points are the same
+		try {
 		assertEquals( isZero((p1.subtract(p1)).length()), false, "subtract(p) wrong result sub between two points that are different");
-		
+		out.println("ERROR: zero vector does not throw an exception");
+		}
+		catch (Exception e) {
+		}
 	}
 
 	/**

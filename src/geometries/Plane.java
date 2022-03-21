@@ -1,4 +1,9 @@
 package geometries;
+import static primitives.Util.isZero;
+
+import java.util.ArrayList;
+import java.util.List;
+import static java.lang.System.out;
 import primitives.*;
 
 public class Plane implements Geometry
@@ -40,5 +45,22 @@ public class Plane implements Geometry
 	public Vector getNormal(Point p)
 	{
 		return normal;
+	}
+	@Override
+	public List<Point> findIntersections(Ray ray) 
+	{
+		if(isZero(ray.getDir().dotProduct(normal))) //the ray includes or parallels to the plane
+			return null;
+		Point p1 = ray.getP0(); // the begining of the ray
+		Vector v = ray.getDir();
+		Point Q = p0; // point on the plane
+		double t = (normal.dotProduct(Q.subtract(p1)))/(normal.dotProduct(v));
+		if(t<=0)
+			return null;
+		//Point p = p1.add(v.scale(t));
+		Point p = ray.getPoint(t); //refactoring
+		List<Point> lst = new ArrayList<Point>();
+		lst.add(p);
+		return lst;
 	}
 }

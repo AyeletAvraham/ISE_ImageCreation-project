@@ -1,4 +1,6 @@
 package geometries;
+import java.util.List;
+import static java.lang.System.out;
 import primitives.*;
 
 public class Tube implements Geometry
@@ -26,10 +28,18 @@ public class Tube implements Geometry
 	}
 	@Override
 	public Vector getNormal(Point p) {
-		// TODO Auto-generated method stub
 		double t = (axisRay.getDir()).dotProduct(p.subtract(axisRay.getP0()));
-		Point O = axisRay.getP0().add((axisRay.getDir()).scale(t));
+		Point O;
+		if(t==0)
+			O = axisRay.getP0();
+		else
+			O = axisRay.getP0().add((axisRay.getDir()).scale(t));
 		return (O.subtract(p)).normalize();
+	}
+	@Override
+	public List<Point> findIntersections(Ray ray) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

@@ -1,5 +1,7 @@
 package primitives;
 
+import static java.lang.System.out;
+
 public class Vector extends Point
 {
 	

@@ -2,6 +2,9 @@ package primitives;
 
 import java.util.Objects;
 
+import static java.lang.System.out;
+import static primitives.Util.isZero;
+
 public class Ray
 {
 	private Point p0;
@@ -10,8 +13,9 @@ public class Ray
 	{
 		try 
 		{
-			Double3 temp = p0.getXyz();
-			if (((temp.d1*temp.d1) + (temp.d2*temp.d2) + (temp.d3*temp.d3))!=1)
+			dir = dir.normalize();
+			Double3 temp = dir.getXyz();
+			if (!isZero(((temp.d1*temp.d1) + (temp.d2*temp.d2) + (temp.d3*temp.d3))-1))
 				throw new IllegalArgumentException("ERROR, this Vector is not normalized");
 			this.p0 = p0;
 			this.dir = dir;
@@ -44,6 +48,10 @@ public class Ray
 	@Override
 	public String toString() {
 		return "p0 =" + p0 + ", dir =" + dir;
+	}
+	public Point getPoint(double t)
+	{
+		return p0.add(dir.scale(t));
 	}
 	
 	

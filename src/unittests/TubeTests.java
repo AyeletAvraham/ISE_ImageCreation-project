@@ -47,10 +47,10 @@ class TubeTests {
 	@Test
 	void testGetNormal() 
 	{
-		Tube t = new Tube(new Ray(new Point(0,0,0), new Vector(1,0,0)), 2);
-		Point p0 = new Point(0,2,0);
+		Tube t = new Tube(new Ray(new Point(-1,0,0), new Vector(1,0,0)), 2);
+		Point p0 = new Point(-1,2,0);
 		//============ Equivalence Partitions Tests ==============
-		assertEquals(t.getNormal(p0), new Vector(0,2,0), "getNormal(p) of tube return wrong result");
+		assertEquals(t.getNormal(p0), new Vector(0,-1,0), "getNormal(p) of tube return wrong result");
 	
 		//=============== Boundary Values Tests ==================
 

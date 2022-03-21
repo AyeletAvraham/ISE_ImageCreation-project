@@ -65,7 +65,11 @@ class VectorTests {
 		//=============== Boundary Values Tests ==================
 		
 		// TC04: Vectors are really equal
-		assertEquals( isZero(v1.subtract(v1).length()), false, "subtract(v) wrong result substract between vectors on the same straight");
+		try {
+		assertEquals( isZero(v1.subtract(v1).length()), true, "subtract(v) wrong result substract between vectors on the same straight");
+		out.println("ERROR: zero vector does not throw an exception");
+		} catch (Exception e) {
+		}
 	}
 
 	/**
@@ -92,8 +96,12 @@ class VectorTests {
 		//=============== Boundary Values Tests ==================
 		
 		// TC05: Vectors are exactly equal but in opposite directions
+		try {
 		assertEquals( isZero((v1.add(v4)).length()), false , "add(v) wrong result add between vectors are exactly equal but in opposite directions");
-		 
+		out.println("ERROR: zero vector does not throw an exception");
+		}
+		catch (Exception e) {
+		}
 	}
 
 	/**
@@ -112,7 +120,12 @@ class VectorTests {
 		//=============== Boundary Values Tests ==================
 		
 		// TC02: Scalar that == 0
+		try {
 		assertEquals( isZero(v1.scale(0).length()), false, "scale(num) wrong result");
+		out.println("ERROR: zero vector does not throw an exception");
+		}
+		catch (Exception e) {
+		}
 	}
 
 	/**
@@ -136,7 +149,7 @@ class VectorTests {
 		//=============== Boundary Values Tests ==================
 		
 		// TC03: Vertical vectors 
-		assertEquals( v1.dotProduct(v3), 0, "dotProduct(v) wrong result dot product between vectors with a sharp angle");
+		assertEquals( v1.dotProduct(v4), 0, "dotProduct(v) wrong result dot product between vectors with a sharp angle");
 	}
 
 	/**
@@ -145,7 +158,7 @@ class VectorTests {
 	@Test
 	void testCrossProduct() 
 	{
-				
+		
 		Vector v1 = new Vector(0,2,0);
 		Vector v2 = new Vector(2,-2,0); //V2 creates an obtuse angle with V1
 		Vector ans1 = new Vector(0,0,-4);
@@ -164,15 +177,29 @@ class VectorTests {
 		//=============== Boundary Values Tests ==================
 	      
 		// TC03: Vectors on the same straight
-		assertEquals( isZero(v1.crossProduct(v5).length()), false, "crossProduct(v) wrong result crossProduct between vectors on the same straight");
-				
+		try {
+		assertEquals( isZero(v1.crossProduct(v5).length()), true, "crossProduct(v) wrong result crossProduct between vectors on the same straight");
+		out.println("ERROR: zero vector does not throw an exception");
+		}
+		catch (Exception e) {
+		}
 		// TC04: Vectors are really equal
-		assertEquals( isZero(v1.crossProduct(v1).length()), false, "crossProduct(v) wrong result crossProduct between vectors on the same straight");
-				
+		try {
+		assertEquals( isZero(v1.crossProduct(v1).length()), true, "crossProduct(v) wrong result crossProduct between vectors on the same straight");
+		out.println("ERROR: zero vector does not throw an exception");
+		}
+		catch (Exception e) {
+		}
 		// TC05: Vectors are exactly equal but in opposite directions
-		assertEquals(isZero(v1.crossProduct(v4).length()), false, "crossProduct(v) wrong result crossProduct between vectors are exactly equal but in opposite directions");	
+		try {
+		assertEquals(isZero(v1.crossProduct(v4).length()), true, "crossProduct(v) wrong result crossProduct between vectors are exactly equal but in opposite directions");	
+		out.println("ERROR: zero vector does not throw an exception");
+		}
+		catch (Exception e) {
+		}
 	}
 
+	
 	/**
 	 * Test method for {@link primitives.Vector#lengthSquared()}.
 	 */
@@ -212,12 +239,12 @@ class VectorTests {
 		//============ Equivalence Partitions Tests ==============
 		
 		// TC01: test a regular vector
-		assertEquals((v1.normalize()), 1, "normalize(v) wrong result normalize of regular vector");
+	    assertEquals((v1.normalize().length()), 1, "normalize(v) wrong result normalize of regular vector");
 		
 		//=============== Boundary Values Tests ==================
 
 		// TC02: the vectors is a unit vector
-		assertEquals((v2.normalize()), 1, "normalize(v) wrong result normalize of unit vector");
+		assertEquals((v2.normalize().length()), 1, "normalize(v) wrong result normalize of unit vector");
 	}
 
 }
