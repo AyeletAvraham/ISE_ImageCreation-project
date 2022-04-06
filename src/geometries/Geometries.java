@@ -15,10 +15,12 @@ public class Geometries implements Intersectable
 	}
 	public Geometries(Intersectable...geometries)
 	{
+		lst = new ArrayList<Intersectable>();
 		add(geometries);
 	}
 	public void add(Intersectable...geometries)
 	{
+		if (lst==null) lst = new ArrayList<Intersectable>();
 		for(Intersectable shape: geometries)
 		{
 			lst.add(shape);
@@ -28,9 +30,20 @@ public class Geometries implements Intersectable
 	public List<Point> findIntersections(Ray ray) 
 	{
 		List<Point> interLst = null;
-		for(Intersectable shape: lst)
+		List<Point> temp = null;
+		if(lst!= null)
 		{
-			shape.findIntersections(ray);
+			for(Intersectable shape: lst)
+			{
+				temp = shape.findIntersections(ray);
+				if(temp!=null)
+				{
+					if(interLst==null)
+						interLst = new ArrayList<Point>();
+					interLst.addAll(temp);
+					temp = null;
+				}
+			}
 		}
 		return interLst;
 	}

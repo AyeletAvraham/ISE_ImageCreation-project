@@ -4,6 +4,7 @@ import java.util.Objects;
 public class Point
 {
 	
+	public static final Point ZERO = new Point(0,0,0);
 	final private Double3 xyz;
 
 	public Point(double p1, double p2, double p3)

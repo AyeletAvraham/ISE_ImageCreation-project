@@ -1,5 +1,6 @@
 package primitives;
 
+import java.util.List;
 import java.util.Objects;
 
 import static java.lang.System.out;
@@ -52,6 +53,22 @@ public class Ray
 	public Point getPoint(double t)
 	{
 		return p0.add(dir.scale(t));
+	}
+	public Point findClosestPoints(List<Point> lst)
+	{
+		if(lst== null) // if there are not intersection points
+			return null;
+		double minDis = lst.get(0).distance(p0);
+		Point tempP = lst.get(0);
+		for(int i = 1; i<lst.size(); i++)  //find the min distance and save its point
+		{
+			if(minDis > lst.get(i).distance(p0))
+			{
+				minDis = lst.get(i).distance(p0);
+				tempP =lst.get(i);
+			}
+		}
+		return tempP;
 	}
 	
 	

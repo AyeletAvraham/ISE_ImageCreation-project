@@ -57,15 +57,14 @@ class GeometriesTests {
 		List<Point> result = lstGeo.findIntersections(new Ray(new Point(2,-1,0),new Vector(0,1,0)));
 	    assertEquals(4, result.size(), "Wrong number of points with Geometries");
 	    
-		
 		 // =============== Boundary Values Tests ==================
 		//TC02: the group is null
 	    List<Point> result1 = lstGeo1.findIntersections(new Ray(new Point(2,-1,0),new Vector(0,1,0)));
-	    assertEquals(0, result1.size(), "Wrong number of points with Geometries");
+	    assertEquals(null, result1, "Wrong number of points with Geometries");
 	    
 	    //TC03: there is no shape that have an intresections with the ray
 	    List<Point> result2 = lstGeo.findIntersections(new Ray(new Point(-1,0,0),new Vector(0,1,0)));
-	    assertEquals(0, result2.size(), "Wrong number of points with Geometries");
+	    assertEquals(null, result2, "Wrong number of points with Geometries");
 	    
 	    //TC04: only one shape have an intersections with the ray (2 points)
 	    List<Point> result3 = lstGeo.findIntersections(new Ray(new Point(0,1,0),new Vector(1,0,0)));
