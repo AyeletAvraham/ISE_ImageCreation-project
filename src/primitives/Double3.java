@@ -15,10 +15,27 @@ public class Double3 {
 	final double d2;
 	final double d3;
 
+	public double getD1() {
+		return d1;
+	}
+
+	public double getD2() {
+		return d2;
+	}
+
+	public double getD3() {
+		return d3;
+	}
+
 	/**
 	 * Zero triad (0,0,0)
 	 */
 	public static final Double3 ZERO = new Double3(0, 0, 0);
+
+	/**
+	 * Ones triad (1,1,1)
+	 */
+	public static final Double3 ONE = new Double3(1, 1, 1);
 
 	/**
 	 * Constructor to initialize Double3 based object with its three number values
@@ -32,17 +49,7 @@ public class Double3 {
 		this.d2 = d2;
 		this.d3 = d3;
 	}
-	public double getD1() {
-		return d1;
-	}
 
-	public double getD2() {
-		return d2;
-	}
-
-	public double getD3() {
-		return d3;
-	}
 	/**
 	 * Constructor to initialize Double3 based object the same number values
 	 * 
@@ -60,10 +67,9 @@ public class Double3 {
 			return true;
 		if (obj == null)
 			return false;
-		if (!(obj instanceof Double3))
-			return false;
-		Double3 other = (Double3) obj;
-		return isZero(d1 - other.d1) && isZero(d2 - other.d2) && isZero(d3 - other.d3);
+		if (obj instanceof Double3 other)
+			return isZero(d1 - other.d1) && isZero(d2 - other.d2) && isZero(d3 - other.d3);
+		return false;
 	}
 
 	@Override
@@ -129,6 +135,16 @@ public class Double3 {
 	 */
 	public Double3 product(Double3 rhs) {
 		return new Double3(d1 * rhs.d1, d2 * rhs.d2, d3 * rhs.d3);
+	}
+	
+	/**
+	 * Checks whether all the numbers are lower than a test number
+	 * @param k the test number
+	 * @return true if all the numbers are less than k, false otherwise
+	 */
+
+	public boolean lowerThan(double k) {
+		return d1 < k && d2 < k && d3 < k;
 	}
 
 }

@@ -3,6 +3,7 @@ package renderer;
 import java.util.List;
 import geometries.Intersectable.GeoPoint;
 import lighting.LightSource;
+import lighting.PointLight;
 import primitives.Color;
 import primitives.Point;
 import primitives.Ray;
@@ -11,11 +12,27 @@ import scene.Scene;
 
 public class RayTracerBasic extends RayTracerBase {
 
+	private static final double DELTA = 0.1;
+
 	public RayTracerBasic(Scene _myScene) {
 		super(_myScene);
 	}
+	private boolean unshaded(LightSource light, Vector l, Vector n, GeoPoint geopoint) 
+	{
+		Vector lightDirection = l.scale(-1); // from point to light source
+		Vector DELTAVector = n.scale(n.dotProduct(lightDirection) > 0 ? DELTA : -DELTA);
+		Point point = geopoint.point.add(DELTAVector);
+		Ray lightRay = new Ray(point, lightDirection);
+		List<GeoPoint> intersections = myScene.geometries.findGeoIntersections(lightRay);
+		if (intersections == null) return true;
+		for (GeoPoint intersection : intersections)     
+			if (light.getDistance(geopoint.point) > intersection.point.distance(geopoint.point))
+					return false; //if there are points in the intersections list that are closer to the point
+						          //than light source – return false
+		return true;
+	}
 
-
+	 
 	@Override
 	public Color traceRay(Ray ray) {
 		List<GeoPoint> lst = myScene.geometries.findGeoIntersections(ray);
@@ -31,6 +48,7 @@ public class RayTracerBasic extends RayTracerBase {
 		return myScene.ambientLight.getIntensity().add(temp.geometry.getEmission().add(calcLocalEffects(temp, ray)));
 	}
 
+	
 
 	private Color calcLocalEffects(GeoPoint intersection, Ray ray) 
 	{
@@ -47,10 +65,12 @@ public class RayTracerBasic extends RayTracerBase {
 			Vector l = lightSource.getL(intersection.point);
 			double nl = primitives.Util.alignZero(n.dotProduct(l));
 			if (nl * nv > 0) 
-			{ // sign(nl) == sing(nv)
+			{ 
+				if (unshaded(lightSource,l, n, intersection)) {
 				Color lightIntensity = lightSource.getIntensity(intersection.point);
 				color = color.add(calcDiffusive(kd, l, n, lightIntensity),
 				calcSpecular(ks, l, n, v, nShininess, lightIntensity));
+			}
 			}
 		}
 		return color;
