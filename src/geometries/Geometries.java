@@ -6,7 +6,7 @@ import java.util.List;
 import primitives.Point;
 import primitives.Ray;
 
-public class Geometries implements Intersectable
+public class Geometries extends Intersectable
 {
 	private ArrayList<Intersectable> lst;
 	public Geometries() 
@@ -47,4 +47,26 @@ public class Geometries implements Intersectable
 		}
 		return interLst;
 	}
+	
+	@Override
+	protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
+		List<GeoPoint> interLst = null;
+		List<GeoPoint> temp = null;
+		if(lst!= null)
+		{
+			for(Intersectable shape: lst)
+			{
+				temp = shape.findGeoIntersections(ray);
+				if(temp!=null)
+				{
+					if(interLst==null)
+						interLst = new ArrayList<GeoPoint>();
+					interLst.addAll(temp);
+					temp = null;
+				}
+			}
+		}
+		return interLst;
+	}
+	
 }

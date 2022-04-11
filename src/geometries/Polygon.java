@@ -11,7 +11,7 @@ import static primitives.Util.*;
  * 
  * @author Dan
  */
-public class Polygon implements Geometry {
+public class Polygon extends Geometry {
 	/**
 	 * List of polygon's vertices
 	 */
@@ -58,8 +58,8 @@ public class Polygon implements Geometry {
 
 		// Subtracting any subsequent points will throw an IllegalArgumentException
 		// because of Zero Vector if they are in the same point
-		Vector edge1 = vertices[vertices.length - 1].subtract(vertices[vertices.length - 2]);
-		Vector edge2 = vertices[0].subtract(vertices[vertices.length - 1]);
+		Vector edge1 = vertices[vertices.length - 1].subtract(vertices[vertices.length - 2]).normalize();
+		Vector edge2 = vertices[0].subtract(vertices[vertices.length - 1]).normalize();
 
 		// Cross Product of any subsequent edges will throw an IllegalArgumentException
 		// because of Zero Vector if they connect three vertices that lay in the same
@@ -91,11 +91,18 @@ public class Polygon implements Geometry {
 
 	@Override
 	public Vector getNormal(Point point) {
-		return plane.getNormal();
+		return plane.getNormal().normalize();
 	}
-
+	/*refactoring
 	@Override
 	public List<Point> findIntersections(Ray ray) {
 		return plane.findIntersections(ray);
 	}
+*/
+
+	@Override
+	protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
+		return plane.findGeoIntersections(ray);
+	}
+	
 }

@@ -1,6 +1,8 @@
 package primitives;
 
 import java.util.List;
+import geometries.Intersectable.GeoPoint;
+
 import java.util.Objects;
 
 import static java.lang.System.out;
@@ -33,7 +35,7 @@ public class Ray
 	}
 	public Vector getDir() 
 	{
-		return dir;
+		return dir.normalize();
 	}
 	@Override
 	public boolean equals(Object obj) {
@@ -54,6 +56,11 @@ public class Ray
 	{
 		return p0.add(dir.scale(t));
 	}
+	public Point findClosestPoint(List<Point> points) {
+	    return points == null || points.isEmpty() ? null
+	           : findClosestGeoPoint(points.stream().map(p -> new GeoPoint(null, p)).toList()).point;
+	}
+/*refactoring
 	public Point findClosestPoints(List<Point> lst)
 	{
 		if(lst== null) // if there are not intersection points
@@ -70,6 +77,22 @@ public class Ray
 		}
 		return tempP;
 	}
-	
-	
+	*/
+
+	public GeoPoint findClosestGeoPoint(List<GeoPoint> lst)
+	{
+		if(lst== null) // if there are not intersection points
+			return null;
+		double minDis = lst.get(0).point.distance(p0);
+		GeoPoint tempP = lst.get(0);
+		for(int i = 1; i<lst.size(); i++)  //find the min distance and save its point
+		{
+			if(minDis > lst.get(i).point.distance(p0))
+			{
+				minDis = lst.get(i).point.distance(p0);
+				tempP =lst.get(i);
+			}
+		}
+		return tempP;
+	}
 }

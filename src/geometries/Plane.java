@@ -6,7 +6,7 @@ import java.util.List;
 import static java.lang.System.out;
 import primitives.*;
 
-public class Plane implements Geometry
+public class Plane extends Geometry
 {
 	private Point p0;
 	private Vector normal;
@@ -17,7 +17,7 @@ public class Plane implements Geometry
 	}
 	public Vector getNormal() 
 	{
-		return normal;
+		return normal.normalize();
 	}
 	public Plane(Point p0, Vector normal) 
 	{
@@ -44,8 +44,9 @@ public class Plane implements Geometry
 	@Override
 	public Vector getNormal(Point p)
 	{
-		return normal;
+		return normal.normalize();
 	}
+	/*refactoring
 	@Override
 	public List<Point> findIntersections(Ray ray) 
 	{
@@ -63,4 +64,24 @@ public class Plane implements Geometry
 		lst.add(p);
 		return lst;
 	}
+*/
+	@Override
+	protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
+		
+		if(isZero(ray.getDir().dotProduct(normal))) //the ray includes or parallels to the plane
+			return null;
+		Point p1 = ray.getP0(); // the begining of the ray
+		Vector v = ray.getDir();
+		Point Q = p0; // point on the plane
+		double t = (normal.dotProduct(Q.subtract(p1)))/(normal.dotProduct(v));
+		if(t<=0)
+			return null;
+		//Point p = p1.add(v.scale(t));
+		Point p = ray.getPoint(t); //refactoring 
+		List<GeoPoint> lst = new ArrayList<GeoPoint>();
+		lst.add(new GeoPoint(this, p));
+		return lst;
+	
+	}
+	
 }

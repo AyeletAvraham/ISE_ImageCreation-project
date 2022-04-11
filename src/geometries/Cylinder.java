@@ -1,7 +1,7 @@
 package geometries;
 import primitives.*;
 import static java.lang.System.out;
-public class Cylinder extends Tube implements Geometry
+public class Cylinder extends Tube
 {
 	
 	private double height;
@@ -25,7 +25,7 @@ public class Cylinder extends Tube implements Geometry
 		Plane plane2 = new Plane(getAxisRay().getP0().add(getAxisRay().getDir().scale(height)),getAxisRay().getDir());
 		if (plane1.onPlane(p)||plane2.onPlane(p))
 			return getAxisRay().getDir().normalize();
-		return v;
+		return v.normalize();
 	}
 
 }

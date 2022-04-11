@@ -23,20 +23,20 @@ class RayTests {
         myList.add(new Point(6, 5, 4));
         myList.add(new Point(2, 0, 0));
         myList.add(new Point(3, 4, 4));
-        assertEquals(myList.get(myList.size() / 2), r.findClosestPoints(myList), "Error, can't find the middle element in list is the closest ");
+        assertEquals(myList.get(myList.size() / 2), r.findClosestPoint(myList), "Error, can't find the middle element in list is the closest ");
 
 
         // =============== Boundary Values Tests ==================
         //TC02: Null list
         myList = null;
-        assertNull(r.findClosestPoints(myList), "Error, this is Null list");
+        assertNull(r.findClosestPoint(myList), "Error, this is Null list");
         
         //TC03:First element in list is the closest
         myList = new LinkedList<>();
         myList.add(new Point(2, 0, 0));
         myList.add(new Point(6, 5, 4));
         myList.add(new Point(3, 4, 4));
-        assertEquals(myList.get(myList.size() - myList.size()), r.findClosestPoints(myList), "Error, can't find first element in list is the closest");
+        assertEquals(myList.get(myList.size() - myList.size()), r.findClosestPoint(myList), "Error, can't find first element in list is the closest");
 
 
         //TC04: Last element in list is the closest
@@ -45,7 +45,7 @@ class RayTests {
         myList.add(new Point(6, 5, 4));
         myList.add(new Point(3, 4, 4));
         myList.add(new Point(2, 0, 0));
-        assertEquals(myList.get(myList.size() - 1), r.findClosestPoints(myList), "Error, can't find ast element in list is the closest");
+        assertEquals(myList.get(myList.size() - 1), r.findClosestPoint(myList), "Error, can't find ast element in list is the closest");
     }
 
 }

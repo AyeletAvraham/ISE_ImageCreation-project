@@ -99,14 +99,14 @@ public class Camera {
 	private Color castRay(int j, int i)
 	{
 		Ray ray = this.constructRay(myImage.getNx(), myImage.getNy(), j, i);
-        return myRayTracer.traceRay(ray);
+		return myRayTracer.traceRay(ray);
 	}
 	
 	public void renderImage()
 	{
 		if (p0 == null || Vto==null || Vright == null || Vup == null|| height == 0|| distance == 0|| width == 0|| myImage == null|| myRayTracer == null)
 			throw new MissingResourceException("Error", "Camara", "the camara is missing a field");
-		
+
 		int nX = myImage.getNx();
         int nY = myImage.getNy();
         for (int i = 0; i < nY; i++) 
