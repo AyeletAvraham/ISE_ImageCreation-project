@@ -53,14 +53,14 @@ public class Polygon extends Geometry {
 		plane = new Plane(vertices[0], vertices[1], vertices[2]);
 		if (vertices.length == 3)
 			return; // no need for more tests for a Triangle
-
+		
 		Vector n = plane.getNormal();
 
 		// Subtracting any subsequent points will throw an IllegalArgumentException
 		// because of Zero Vector if they are in the same point
 		Vector edge1 = vertices[vertices.length - 1].subtract(vertices[vertices.length - 2]).normalize();
 		Vector edge2 = vertices[0].subtract(vertices[vertices.length - 1]).normalize();
-
+		
 		// Cross Product of any subsequent edges will throw an IllegalArgumentException
 		// because of Zero Vector if they connect three vertices that lay in the same
 		// line.
@@ -79,7 +79,12 @@ public class Polygon extends Geometry {
 			edge1 = edge2;
 			edge2 = vertices[i].subtract(vertices[i - 1]);
 			if (positive != (edge1.crossProduct(edge2).dotProduct(n) > 0))
+			{
+
+				System.out.println("im here");
 				throw new IllegalArgumentException("All vertices must be ordered and the polygon must be convex");
+
+			}
 		}
 		size = vertices.length;
 	}

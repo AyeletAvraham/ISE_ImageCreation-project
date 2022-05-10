@@ -10,6 +10,7 @@ import static primitives.Util.isZero;
 
 public class Ray
 {
+	private static final double DELTA = 0.1;
 	private Point p0;
 	private Vector dir;
 	public Ray(Point p0, Vector dir)
@@ -29,6 +30,12 @@ public class Ray
 		}
 		
 	}
+
+    public Ray(Point head, Vector direction, Vector normal) {
+        double delta = direction.dotProduct(normal) >= 0 ? DELTA : -DELTA;
+        p0 = head.add(normal.scale(delta));
+        dir = direction;
+    }
 	public Point getP0() 
 	{
 		return p0;
