@@ -3,10 +3,18 @@ package lighting;
 import primitives.Color;
 import primitives.Point;
 import primitives.Vector;
-
+/**
+ * Class to implement a point light source of the scene
+ */
 public class PointLight  extends Light implements LightSource
 {
+	/**
+     * Position of the light
+     */
 	protected Point position;
+	/**
+     * Parameters of the light - Reduction coefficients - constant, linear and square 
+     */
 	protected double kC = 1,kL = 0,kQ = 0;
 	
 	public PointLight(Color intensity, Point position, double kC, double kL, double kQ) {
@@ -23,14 +31,35 @@ public class PointLight  extends Light implements LightSource
 		this.kL = 0;
 		this.kQ = 0;			
 	}
+	/**
+     * This function set constant discount coefficient value and return the point light - builder pattern
+
+     * @param kC
+     * @return the point light
+
+     */
 	public PointLight setkC(double kC) {
 		this.kC = kC;
 		return this;
 	}
+	/**
+     * This function set linear discount coefficient value and return the point light - builder pattern
+
+     * @param kL
+     * @return the point light
+
+     */
 	public PointLight setkL(double kL) {
 		this.kL = kL;
 		return this;
 	}
+	/**
+     * This function set square discount coefficient value and return the point light - builder pattern
+
+     * @param kQ
+     * @return the point light
+
+     */
 	public PointLight setkQ(double kQ) {
 		this.kQ = kQ;
 		return this;

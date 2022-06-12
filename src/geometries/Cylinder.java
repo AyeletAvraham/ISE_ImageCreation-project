@@ -1,6 +1,10 @@
 package geometries;
 import primitives.*;
 import static java.lang.System.out;
+
+/**
+ * Class to implement a Cylinder object
+ */
 public class Cylinder extends Tube
 {
 	
@@ -18,6 +22,13 @@ public class Cylinder extends Tube
 		return height;
 	}
 
+	/**
+	 * if the point is on one of the bases- the normal is the axis
+	 * if the point is on the casing- the normal is the vector between the point
+	 * and the point on the axis
+	 * @param p the point
+	 * @return the normal of the point
+	 */
 	@Override
 	public Vector getNormal(Point p) {
 		Vector v = super.getNormal(p);

@@ -3,6 +3,9 @@ import java.util.List;
 
 import primitives.*;
 
+/**
+ * Interface for any geometric body
+ */
 public abstract class Geometry extends Intersectable
 {
 	private Material material = new Material();

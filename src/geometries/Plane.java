@@ -5,7 +5,9 @@ import java.util.ArrayList;
 import java.util.List;
 import static java.lang.System.out;
 import primitives.*;
-
+/**
+ * Class to implement a plane object
+ */
 public class Plane extends Geometry
 {
 	private Point p0;

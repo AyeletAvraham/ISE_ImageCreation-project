@@ -1,6 +1,9 @@
 package primitives;
 import java.util.Objects;
 
+/**
+ * Class to implement a Point
+ */
 public class Point
 {
 	
@@ -31,11 +34,22 @@ public class Point
 	public String toString() {
 		return "[xyz=" + xyz + "]";
 	}
-
+	 /**
+     * vector from substraction of two point's coordinates
+     *
+     * @param p2 the second point
+     * @return the vector
+     */
 	public Vector subtract(Point p2)
 	{
 		return new Vector(this.getXyz().d1- p2.getXyz().d1,this.getXyz().d2- p2.getXyz().d2, this.getXyz().d3- p2.getXyz().d3);
 	}
+	/**
+     * adds vector to a point and return the getted point
+     *
+     * @param v the vector to add
+     * @return the new point
+     */
 	public Point add(Vector v)
 	{
 		Double3 temp = v.getXyz();
@@ -46,10 +60,23 @@ public class Point
 	{
 		return xyz;
 	}
+	
+	 /**
+     * squared distance between two points
+     *
+     * @param p2 the second point
+     * @return the distance
+     */
 	public double distanceSquared(Point p2)
 	{
 		return (((this.getXyz().d1- p2.getXyz().d1)*(this.getXyz().d1- p2.getXyz().d1))	+((this.getXyz().d2- p2.getXyz().d2)*(this.getXyz().d2- p2.getXyz().d2))+((this.getXyz().d3- p2.getXyz().d3)*(this.getXyz().d3- p2.getXyz().d3)));
 	}
+	/**
+     * distance between two points
+     *
+     * @param p the second point
+     * @return the distance
+     */
 	public double distance(Point p)
 	{
 		return Math.sqrt((this.distanceSquared(p)));

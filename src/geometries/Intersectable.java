@@ -5,19 +5,37 @@ import java.util.Objects;
 
 import primitives.*;
 
+/**
+ * Interface
+ */
 public abstract class Intersectable 
 {
+	/**
+	 * This function return a list of intersection points that includes
+	 *  intersections of all the objects in the collection
+	 *  @param ray
+	 *  @return list of all the intersections points.
+	 */
 	public List<Point> findIntersections(Ray ray) {
 	    var geoList = findGeoIntersections(ray);
 	    return geoList == null ? null
 	                           : geoList.stream().map(gp -> gp.point).toList();
 	}
-
-//	public abstract List<Point> findIntersections(Ray ray);
+	/**
+	 * This function return a list of intersection points that includes
+	 *  intersections of all the objects in the collection
+	 *  @param ray
+	 *  @return list of all the intersections points and their geometry
+	 */
 	public final List<GeoPoint> findGeoIntersections(Ray ray)
     {		
     	return findGeoIntersectionsHelper(ray);
     }
+	/**
+	 * This abstract function send the ray for the specipic geometry
+	 *  @param ray
+	 *  @return list of all the intersections points and their geometry
+	 */
     protected abstract List<GeoPoint> findGeoIntersectionsHelper(Ray ray);
 	public static class GeoPoint
 	{

@@ -6,7 +6,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import primitives.*;
-
+/**
+ * class to implement a triangle object
+ *
+ */
 public class Triangle extends Polygon
 {
 	public Triangle(Point p1, Point p2, Point p3)

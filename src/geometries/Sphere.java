@@ -7,6 +7,10 @@ import java.util.List;
 
 import primitives.*;
 
+/**
+ * class to implement a sphere object
+ *
+ */
 public class Sphere extends Geometry
 {
 	private Point center;

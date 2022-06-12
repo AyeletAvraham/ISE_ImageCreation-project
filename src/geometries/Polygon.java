@@ -103,7 +103,7 @@ public class Polygon extends Geometry {
 	public List<Point> findIntersections(Ray ray) {
 		return plane.findIntersections(ray);
 	}
-*/
+	 */
 
 	@Override
 	protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {

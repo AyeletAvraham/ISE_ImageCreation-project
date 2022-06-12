@@ -2,7 +2,10 @@ package geometries;
 import java.util.List;
 import static java.lang.System.out;
 import primitives.*;
-
+/**
+ * class to implement a tube object
+ *
+ */
 public class Tube extends Geometry
 {
 	private Ray axisRay;

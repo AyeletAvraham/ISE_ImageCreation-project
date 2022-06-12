@@ -8,10 +8,19 @@ import java.util.Objects;
 import static java.lang.System.out;
 import static primitives.Util.isZero;
 
+/**
+ * Class to implement a ray
+ */
 public class Ray
 {
 	private static final double DELTA = 0.1;
+	/**
+     * Base point of the ray
+     */
 	private Point p0;
+	/**
+     * direction's vector of the ray
+     */
 	private Vector dir;
 	public Ray(Point p0, Vector dir)
 	{
@@ -63,6 +72,13 @@ public class Ray
 	{
 		return p0.add(dir.scale(t));
 	}
+	/**
+     * Find intersections of a ray with a list of Points and return the
+     * intersection point that is closest to the ray head. If there are no
+     * intersections, null will be returned.
+     *
+     * @return the closest point
+     */
 	public Point findClosestPoint(List<Point> points) {
 	    return points == null || points.isEmpty() ? null
 	           : findClosestGeoPoint(points.stream().map(p -> new GeoPoint(null, p)).toList()).point;
@@ -85,7 +101,11 @@ public class Ray
 		return tempP;
 	}
 	*/
-
+	 /**
+     * get the closest GeoPoint in the list of points
+     * @param lst list of intersection points
+     * @return the closest point with the geometry
+     */
 	public GeoPoint findClosestGeoPoint(List<GeoPoint> lst)
 	{
 		if(lst== null) // if there are not intersection points
