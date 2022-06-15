@@ -187,7 +187,11 @@ public class Camera {
         }
 	}
 	
-	
+	/**
+     * Instead of calculating the color pixel after pixel, we will use threads and calculate
+     * the color of each pixel in parallel
+
+     */
 	public void renderImageThreads()
 	{
 		if (p0 == null || Vto==null || Vright == null || Vup == null|| height == 0|| distance == 0|| width == 0|| myImage == null|| myRayTracer == null)
