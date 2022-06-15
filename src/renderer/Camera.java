@@ -177,6 +177,7 @@ public class Camera {
 		int nX = myImage.getNx();
         int nY = myImage.getNy();
 		
+        
         for (int i = 0; i < nY; i++) 
         {
             for (int j = 0; j < nX; j++) 
@@ -184,6 +185,26 @@ public class Camera {
             	myImage.writePixel(j, i,castRay(j,i)); //before refactoring anti-analising
             }
         }
+	}
+	
+	
+	public void renderImageThreads()
+	{
+		if (p0 == null || Vto==null || Vright == null || Vup == null|| height == 0|| distance == 0|| width == 0|| myImage == null|| myRayTracer == null)
+			throw new MissingResourceException("Error", "Camara", "the camara is missing a field");
+		int nX = myImage.getNx();
+        int nY = myImage.getNy();
+        int threadsCount = 3;
+        int printInterval = 1;
+        Pixel.initialize(nY, nX, printInterval);
+        while (threadsCount-- > 0) {
+        	new Thread(() -> {
+        		for (Pixel pixel = new Pixel(); pixel.nextPixel(); Pixel.pixelDone())
+        			myImage.writePixel(pixel.col, pixel.row,superSampling(pixel.col,pixel.row,2, 0, Color.BLACK));
+        	}).start();
+        }
+        Pixel.waitToFinish();
+
 	}
 	
 	/**
@@ -211,7 +232,6 @@ public class Camera {
                     }
                 }
             	myImage.writePixel(j, i, tempC.reduce(81));
-            	//myImage.writePixel(j, i,castRay(j,i)); //refactoring anti-analising
             	tempC = new Color(0,0,0);
             
             }
@@ -232,25 +252,12 @@ public class Camera {
 			throw new MissingResourceException("Error", "Camara", "the camara is missing a field");
 		int nX = myImage.getNx();
         int nY = myImage.getNy();
-		//Color tempC = new Color(0,0,0);
 		
         for (int i = 0; i < nY; i++) 
         {
             for (int j = 0; j < nX; j++) 
             {
-            	myImage.writePixel(j, i,superSampling(j,i,2));
-            	/* refactoring anti-analising
-            	for (double k = i-0.5; k <= i+0.5; k+=(1.0/8)) 
-                {
-                    for (double m = j-0.5; m <= j+0.5; m+=(1.0/8))
-                   {
-                    	tempC = tempC.add(castRay(m,k));
-                    }
-                }
-            	myImage.writePixel(j, i, tempC.reduce(81));
-            	//myImage.writePixel(j, i,castRay(j,i)); //refactoring anti-analising
-            	tempC = new Color(0,0,0);
-            	*/
+            	myImage.writePixel(j, i,superSampling(j,i,2, 0, Color.BLACK));
             }
         }
 	}
@@ -260,22 +267,40 @@ public class Camera {
      * color of all of the corners and if they are the same - it returns this color,
      * else - it continue the recursive process 
      */
-	private Color superSampling(double j, double i, int n)
+	private Color superSampling(double j, double i, int n, int corner, Color myC)
 	{
 		if(n==16) //stopping condition
 		{	
 			return castRay(j,i);
 		}
-		Color c1 = castRay(j-1.0/n,i-1.0/n);
-		Color c2 = castRay(j-1.0/n,i+1.0/n);
-		Color c3 = castRay(j+1.0/n,i+1.0/n);
-		Color c4 = castRay(j+1.0/n,i-1.0/n);
+		Color c1, c2, c3, c4;
+		if(corner==1)
+			c1 = myC;
+		else
+			c1 = castRay(j+1.0/n,i-1.0/n);
+		
+		if(corner==2)
+			c2 = myC;
+		else
+			c2 = castRay(j+1.0/n,i+1.0/n);
+		
+		if(corner==3)
+			c3 = myC;
+		else 
+			c3 = castRay(j-1.0/n,i-1.0/n);
+		
+		if(corner==4)
+			c4 = myC;
+		else
+			c4 = castRay(j-1.0/n,i+1.0/n);
+		
+		
 		if(c1==c2 && c1==c3 && c1==c4)
 			return c1;
 		else
 		{
 			Color tempC = new Color(0,0,0);
-			tempC = tempC.add(superSampling(j-1.0/(n*2),i-1.0/(n*2),n*2),superSampling(j-1.0/(n*2),i+1.0/(n*2),n*2),superSampling(j+1.0/(n*2),i-1.0/(n*2),n*2),superSampling(j+1.0/(n*2),i+1.0/(n*2),n*2));
+			tempC = tempC.add(superSampling(j-1.0/(n*2),i-1.0/(n*2),n*2, 3, c3),superSampling(j-1.0/(n*2),i+1.0/(n*2),n*2, 4, c4),superSampling(j+1.0/(n*2),i-1.0/(n*2),n*2, 1, c1),superSampling(j+1.0/(n*2),i+1.0/(n*2),n*2,2, c2));
 			
 			return tempC.reduce(4);
 		}
